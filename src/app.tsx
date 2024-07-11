@@ -147,7 +147,7 @@ export function App() {
                   type="button"
                   onClick={turnGuestOppositePrevBooleanModal}
                 >
-                  <X className="size-5 text-zinc-400" />
+                  <X className="size-5 text-zinc-400 transition-colors duration-200 hover:text-zinc-300" />
                 </button>
               </div>
 
@@ -168,7 +168,7 @@ export function App() {
                     onClick={() => removeEmailsFromInvites(email)}
                     type="button"
                   >
-                    <X className="size-4 text-zinc-400" />
+                    <X className="size-4 text-zinc-400 transition-colors duration-200 hover:text-zinc-300" />
                   </button>
                 </div>
               ))}
