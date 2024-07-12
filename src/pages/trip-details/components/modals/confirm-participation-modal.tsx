@@ -1,7 +1,7 @@
 import { format } from 'date-fns'
 import { Loader2, Mail, User, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 import { Button } from '@/components/buttons'
 import { api } from '@/lib/axios'
@@ -23,8 +23,6 @@ export function ConfirmParticipationModal() {
   const [trip, setTrip] = useState<Trip | undefined>()
   const [participantName, setParticipantName] = useState<string | undefined>()
   const [participantEmail, setParticipantEmail] = useState<string | undefined>()
-
-  const navigate = useNavigate()
 
   const { tripId, participantId } = useParams()
 
@@ -56,10 +54,7 @@ export function ConfirmParticipationModal() {
           email: participantEmail,
         })
         .then(async () => {
-          setIsHandleConfirmParticipationLoading(false)
-          setTimeout(() => {
-            navigate(`/trips/${tripId}`)
-          }, 3000)
+          window.document.location.replace(`/trips/${tripId}`)
         })
     } catch (err) {
       setIsHandleConfirmParticipationLoading(false)
