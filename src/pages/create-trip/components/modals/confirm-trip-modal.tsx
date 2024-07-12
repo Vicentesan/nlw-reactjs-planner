@@ -76,7 +76,7 @@ export function ConfirmTripModal({
             disabled={isHandleCreateTripLoading}
           >
             {isHandleCreateTripLoading ? (
-              <Loader2 className="animate-spin" />
+              <Loader2 className="size-5 animate-spin" />
             ) : (
               'Confirmar criação da viagem'
             )}

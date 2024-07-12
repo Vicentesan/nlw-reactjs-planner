@@ -10,10 +10,8 @@ import { CreateActivityModal } from './components/modals/create-activity-modal'
 export function TripDetailsPage() {
   const [isCreateActivityModalOpen, setIsCreateActivityModalOpen] =
     useState<boolean>(false)
-  const [isCreateLinkModalOpen, setIsCreateLinkModalOpen] =
-    useState<boolean>(false)
-  const [isManageGuestsModalOpen, setIsManageGuestsModalOpen] =
-    useState<boolean>(false)
+  const [, setIsCreateLinkModalOpen] = useState<boolean>(false)
+  const [, setIsManageGuestsModalOpen] = useState<boolean>(false)
 
   function turnOppositePrevBooleanCreateActivityModal() {
     setIsCreateActivityModalOpen((prev) => !prev)
@@ -26,8 +24,6 @@ export function TripDetailsPage() {
   function turnOppositePrevBooleanManageGuestsModal() {
     setIsManageGuestsModalOpen((prev) => !prev)
   }
-
-  console.log(isCreateLinkModalOpen, isManageGuestsModalOpen)
 
   return (
     <div className="mx-auto max-w-6xl space-y-8 px-6 py-10">
