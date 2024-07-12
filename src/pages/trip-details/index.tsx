@@ -7,6 +7,7 @@ import { Guests } from './components/guests'
 import { ImportantLinks } from './components/important-links'
 import { ConfirmParticipationModal } from './components/modals/confirm-participation-modal'
 import { CreateActivityModal } from './components/modals/create-activity-modal'
+import { CreateNewLinkModal } from './components/modals/create-new-link-modal'
 
 export function TripDetailsPage({
   confirmParticipant,
@@ -15,7 +16,8 @@ export function TripDetailsPage({
 }) {
   const [isCreateActivityModalOpen, setIsCreateActivityModalOpen] =
     useState<boolean>(false)
-  const [, setIsCreateLinkModalOpen] = useState<boolean>(false)
+  const [isCreateLinkModalOpen, setIsCreateLinkModalOpen] =
+    useState<boolean>(false)
   const [, setIsManageGuestsModalOpen] = useState<boolean>(false)
 
   function turnOppositePrevBooleanCreateActivityModal() {
@@ -69,6 +71,14 @@ export function TripDetailsPage({
 
       {isCreateActivityModalOpen && (
         <CreateActivityModal
+          turnOppositePrevBooleanCreateActivityModal={
+            turnOppositePrevBooleanCreateActivityModal
+          }
+        />
+      )}
+
+      {isCreateLinkModalOpen && (
+        <CreateNewLinkModal
           turnOppositePrevBooleanCreateActivityModal={
             turnOppositePrevBooleanCreateActivityModal
           }

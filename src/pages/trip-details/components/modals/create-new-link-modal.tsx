@@ -5,46 +5,46 @@ import { useParams } from 'react-router-dom'
 import { Button } from '@/components/buttons'
 import { api } from '@/lib/axios'
 
-interface CreateActivityModalProps {
-  turnOppositePrevBooleanCreateActivityModal: () => void
+interface CreateNewLinkModalProps {
+  turnOppositePrevBooleanCreateLinkModal: () => void
 }
 
-export function CreateActivityModal({
-  turnOppositePrevBooleanCreateActivityModal,
-}: CreateActivityModalProps) {
-  const [isHandleCreateActivityLoading, setIsHandleCreateActivityLoading] =
+export function CreateNewLinkModal({
+  turnOppositePrevBooleanCreateLinkModal,
+}: CreateNewLinkModalProps) {
+  const [isHandleCreateLinkLoading, setIsHandleCreateLinkLoading] =
     useState<boolean>(false)
-  const [isHandleCreateActivityDone, setIsHandleCreateActivityDone] =
+  const [isHandleCreateLinkDone, setIsHandleCreateLinkDone] =
     useState<boolean>(false)
 
   const { tripId } = useParams()
 
-  async function handleCreateActivity(e: React.FormEvent<HTMLFormElement>) {
+  async function handleCreateLink(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
     const formData = new FormData(e.currentTarget)
     const title = formData.get('title')?.toString()
-    const occursAt = formData.get('occursAt')?.toString()
+    const url = formData.get('url')?.toString()
 
-    if (!title || !occursAt || !tripId) return
+    if (!title || !url) return
 
-    setIsHandleCreateActivityLoading(true)
+    setIsHandleCreateLinkLoading(true)
 
     try {
       await api
-        .post(`/trips/${tripId}/activities`, {
+        .post(`/trips/${tripId}/links`, {
           title,
-          occursAt,
+          url,
         })
         .then(async () => {
-          setIsHandleCreateActivityLoading(false)
-          setIsHandleCreateActivityDone(true)
+          setIsHandleCreateLinkLoading(false)
+          setIsHandleCreateLinkDone(true)
           setTimeout(() => {
             window.document.location.reload()
           }, 3000)
         })
     } catch (err) {
-      setIsHandleCreateActivityLoading(false)
+      setIsHandleCreateLinkLoading(false)
 
       throw new Error(err as string)
     }
@@ -58,7 +58,7 @@ export function CreateActivityModal({
             <h2 className="text-lg font-semibold">Cadastrar atividade</h2>
             <button
               type="button"
-              onClick={turnOppositePrevBooleanCreateActivityModal}
+              onClick={turnOppositePrevBooleanCreateLinkModal}
             >
               <X className="size-5 text-zinc-400 transition-colors duration-200 hover:text-zinc-300" />
             </button>
@@ -69,13 +69,13 @@ export function CreateActivityModal({
           </p>
         </div>
 
-        <form onSubmit={handleCreateActivity} className="space-y-4">
+        <form onSubmit={handleCreateLink} className="space-y-4">
           <div className="space-y-2">
             <div className="flex h-14 items-center gap-2 rounded-lg bg-zinc-950 stroke-zinc-800 px-4">
               <Tag className="size-5 text-zinc-400" />
               <input
                 name="title"
-                placeholder="Qual a atividade?"
+                placeholder="Título do link"
                 className="w-40 flex-1 bg-transparent text-lg placeholder-zinc-400 outline-none disabled:cursor-not-allowed"
               />
             </div>
@@ -83,26 +83,21 @@ export function CreateActivityModal({
             <div className="flex h-14 flex-1 items-center gap-2 rounded-lg bg-zinc-950 stroke-zinc-800 px-4">
               <Calendar className="size-5 text-zinc-400" />
               <input
-                type="datetime-local"
-                name="occursAt"
-                placeholder="Data e horário da atividade"
+                type="url"
+                name="url"
+                placeholder="URL"
                 className="w-40 flex-1 bg-transparent text-lg font-medium placeholder-zinc-400 outline-none disabled:cursor-not-allowed"
               />
             </div>
           </div>
 
-          <Button
-            size="full"
-            disabled={
-              isHandleCreateActivityLoading || isHandleCreateActivityDone
-            }
-          >
-            {isHandleCreateActivityLoading ? (
+          <Button type="submit" size="full">
+            {isHandleCreateLinkLoading ? (
               <Loader2 className="size-5 animate-spin" />
-            ) : isHandleCreateActivityDone ? (
+            ) : isHandleCreateLinkDone ? (
               <CircleCheck className="size-5" />
             ) : (
-              'Salvar atividade'
+              'Salvar link'
             )}
           </Button>
         </form>
