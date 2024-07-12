@@ -13,7 +13,6 @@ interface DestinationAndDateStepsProps {
   setDestination: (destination: string) => void
   isGuestInputOpen: boolean
   eventStartAndEndDates: DateRange | undefined
-  destination: string | undefined
 }
 
 export function DestinationAndDateSteps({
@@ -21,7 +20,6 @@ export function DestinationAndDateSteps({
   isGuestInputOpen,
   eventStartAndEndDates,
   setEventStartAndEndDates,
-  destination,
   setDestination,
 }: DestinationAndDateStepsProps) {
   const [isDatePickerOpen, setIsDatePickerOpen] = useState<boolean>(false)

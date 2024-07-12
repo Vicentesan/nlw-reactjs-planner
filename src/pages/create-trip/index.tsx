@@ -26,9 +26,7 @@ export function CreateTripPage() {
   const [ownerName, setOwnerName] = useState<string | undefined>()
   const [ownerEmail, setOwnerEmail] = useState<string | undefined>()
 
-  const [emailsToInvite, setEmailsToInvite] = useState<string[]>([
-    'vikom.sanchez@gmail.com',
-  ])
+  const [emailsToInvite, setEmailsToInvite] = useState<string[]>([])
 
   const [isHandleCreateTripLoading, setIsHandleCreateTripLoading] =
     useState<boolean>(false)
@@ -119,7 +117,6 @@ export function CreateTripPage() {
             }
             eventStartAndEndDates={eventStartAndEndDates}
             setEventStartAndEndDates={setEventStartAndEndDates}
-            destination={destination}
             setDestination={setDestination}
           />
 
