@@ -2,7 +2,7 @@ import type React from 'react'
 import { tv, VariantProps } from 'tailwind-variants'
 
 const buttonVariants = tv({
-  base: 'flex items-center justify-center gap-2 rounded-lg px-5 font-medium transition-colors duration-200',
+  base: 'flex items-center justify-center gap-2 rounded-lg px-5 font-medium transition-colors duration-200 disabled:cursor-not-allowed',
 
   variants: {
     variant: {

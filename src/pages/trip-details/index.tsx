@@ -5,9 +5,14 @@ import { Activities } from './components/activities'
 import { DestinationAndDateHeader } from './components/destination-and-date-header'
 import { Guests } from './components/guests'
 import { ImportantLinks } from './components/important-links'
+import { ConfirmParticipationModal } from './components/modals/confirm-participation-modal'
 import { CreateActivityModal } from './components/modals/create-activity-modal'
 
-export function TripDetailsPage() {
+export function TripDetailsPage({
+  confirmParticipant,
+}: {
+  confirmParticipant?: boolean
+}) {
   const [isCreateActivityModalOpen, setIsCreateActivityModalOpen] =
     useState<boolean>(false)
   const [, setIsCreateLinkModalOpen] = useState<boolean>(false)
@@ -69,6 +74,8 @@ export function TripDetailsPage() {
           }
         />
       )}
+
+      {confirmParticipant && <ConfirmParticipationModal />}
     </div>
   )
 }
