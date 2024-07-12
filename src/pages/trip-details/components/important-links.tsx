@@ -1,6 +1,6 @@
 import { Link2, Plus } from 'lucide-react'
 
-import { Button } from '../../../components/buttons'
+import { Button } from '@/components/buttons'
 
 interface ImportantLinksProps {
   turnOppositePrevBooleanCreateLinkModal: () => void

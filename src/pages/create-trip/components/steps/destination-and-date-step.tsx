@@ -1,6 +1,6 @@
 import { ArrowRight, Calendar, MapPin, Settings2 } from 'lucide-react'
 
-import { Button } from '../../../../components/buttons'
+import { Button } from '@/components/buttons'
 
 interface DestinationAndDateStepsProps {
   turnGuestOppositePrevBooleanInput: () => void

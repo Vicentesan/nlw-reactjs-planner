@@ -1,6 +1,6 @@
 import { Calendar, Tag, X } from 'lucide-react'
 
-import { Button } from '../../../../components/buttons'
+import { Button } from '@/components/buttons'
 
 interface CreateActivityModalProps {
   turnOppositePrevBooleanCreateActivityModal: () => void

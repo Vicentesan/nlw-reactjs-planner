@@ -1,6 +1,6 @@
 import { Mail, User, X } from 'lucide-react'
 
-import { Button } from '../../../../components/buttons'
+import { Button } from '@/components/buttons'
 
 interface ConfirmTripModalProps {
   turnGuestOppositePrevBooleanConfirmTripModal: () => void

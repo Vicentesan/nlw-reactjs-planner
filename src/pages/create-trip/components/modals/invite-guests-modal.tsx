@@ -1,6 +1,6 @@
 import { AtSign, Plus, X } from 'lucide-react'
 
-import { Button } from '../../../../components/buttons'
+import { Button } from '@/components/buttons'
 
 interface InviteGuestsModalProps {
   turnGuestOppositePrevBooleanInviteModal: () => void
