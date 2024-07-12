@@ -5,13 +5,29 @@ import { Activities } from './components/activities'
 import { DestinationAndDateHeader } from './components/destination-and-date-header'
 import { Guests } from './components/guests'
 import { ImportantLinks } from './components/important-links'
+import { CreateActivityModal } from './components/modals/create-activity-modal'
 
 export function TripDetailsPage() {
-  const [_, setIsCreateActivityModalOpen] = useState<boolean>(false)
+  const [isCreateActivityModalOpen, setIsCreateActivityModalOpen] =
+    useState<boolean>(false)
+  const [isCreateLinkModalOpen, setIsCreateLinkModalOpen] =
+    useState<boolean>(false)
+  const [isManageGuestsModalOpen, setIsManageGuestsModalOpen] =
+    useState<boolean>(false)
 
   function turnOppositePrevBooleanCreateActivityModal() {
     setIsCreateActivityModalOpen((prev) => !prev)
   }
+
+  function turnOppositePrevBooleanCreateLinkModal() {
+    setIsCreateLinkModalOpen((prev) => !prev)
+  }
+
+  function turnOppositePrevBooleanManageGuestsModal() {
+    setIsManageGuestsModalOpen((prev) => !prev)
+  }
+
+  console.log(isCreateLinkModalOpen, isManageGuestsModalOpen)
 
   return (
     <div className="mx-auto max-w-6xl space-y-8 px-6 py-10">
@@ -34,13 +50,29 @@ export function TripDetailsPage() {
         </div>
 
         <div className="w-80 space-y-6">
-          <ImportantLinks />
+          <ImportantLinks
+            turnOppositePrevBooleanCreateLinkModal={
+              turnOppositePrevBooleanCreateLinkModal
+            }
+          />
 
           <div className="h-px w-full bg-zinc-800" />
 
-          <Guests />
+          <Guests
+            turnOppositePrevBooleanManageGuestsModal={
+              turnOppositePrevBooleanManageGuestsModal
+            }
+          />
         </div>
       </main>
+
+      {isCreateActivityModalOpen && (
+        <CreateActivityModal
+          turnOppositePrevBooleanCreateActivityModal={
+            turnOppositePrevBooleanCreateActivityModal
+          }
+        />
+      )}
     </div>
   )
 }

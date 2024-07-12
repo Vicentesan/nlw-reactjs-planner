@@ -1,6 +1,12 @@
 import { CircleCheck, CircleDashed, UserCog } from 'lucide-react'
 
-export function Guests() {
+interface GuestsProps {
+  turnOppositePrevBooleanManageGuestsModal: () => void
+}
+
+export function Guests({
+  turnOppositePrevBooleanManageGuestsModal,
+}: GuestsProps) {
   return (
     <div className="space-y-6">
       <h3 className="text-xl font-semibold">Convidados</h3>
@@ -31,7 +37,10 @@ export function Guests() {
         </div>
       </div>
 
-      <button className="flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-zinc-800 px-5 font-medium text-zinc-200 transition-colors duration-200 hover:bg-zinc-700">
+      <button
+        onClick={turnOppositePrevBooleanManageGuestsModal}
+        className="flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-zinc-800 px-5 font-medium text-zinc-200 transition-colors duration-200 hover:bg-zinc-700"
+      >
         <UserCog className="size-5" />
         <span>Gerenciar convidados</span>
       </button>
