@@ -1,15 +1,21 @@
-import { Mail, User, X } from 'lucide-react'
+import { Loader2, Mail, User, X } from 'lucide-react'
 
 import { Button } from '@/components/buttons'
 
 interface ConfirmTripModalProps {
   turnGuestOppositePrevBooleanConfirmTripModal: () => void
   handleCreateTrip: (e: React.FormEvent<HTMLFormElement>) => void
+  setOwnerName: (ownerName: string) => void
+  setOwnerEmail: (ownerEmail: string) => void
+  isHandleCreateTripLoading: boolean
 }
 
 export function ConfirmTripModal({
   turnGuestOppositePrevBooleanConfirmTripModal,
   handleCreateTrip,
+  setOwnerName,
+  setOwnerEmail,
+  isHandleCreateTripLoading,
 }: ConfirmTripModalProps) {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/60">
@@ -47,6 +53,7 @@ export function ConfirmTripModal({
               <input
                 name="name"
                 placeholder="Seu nome completo"
+                onChange={(e) => setOwnerName(e.target.value)}
                 className="w-40 flex-1 bg-transparent text-lg placeholder-zinc-400 outline-none disabled:cursor-not-allowed"
               />
             </div>
@@ -57,13 +64,22 @@ export function ConfirmTripModal({
                 type="email"
                 name="email"
                 placeholder="Seu e-mail pessoal"
+                onChange={(e) => setOwnerEmail(e.target.value)}
                 className="w-40 flex-1 bg-transparent text-lg font-medium placeholder-zinc-400 outline-none disabled:cursor-not-allowed"
               />
             </div>
           </div>
 
-          <Button type="submit" size="full">
-            Confirmar criação da viagem
+          <Button
+            type="submit"
+            size="full"
+            disabled={isHandleCreateTripLoading}
+          >
+            {isHandleCreateTripLoading ? (
+              <Loader2 className="animate-spin" />
+            ) : (
+              'Confirmar criação da viagem'
+            )}
           </Button>
         </form>
       </div>

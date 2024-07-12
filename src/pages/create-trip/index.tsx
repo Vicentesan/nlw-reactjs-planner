@@ -1,5 +1,8 @@
 import { useState } from 'react'
+import type { DateRange } from 'react-day-picker'
 import { useNavigate } from 'react-router-dom'
+
+import { api } from '@/lib/axios'
 
 import { ConfirmTripModal } from './components/modals/confirm-trip-modal'
 import { InviteGuestsModal } from './components/modals/invite-guests-modal'
@@ -15,9 +18,20 @@ export function CreateTripPage() {
   const [isConfirmTripModalOpen, setIsConfirmTripModalOpen] =
     useState<boolean>(false)
 
+  const [eventStartAndEndDates, setEventStartAndEndDates] = useState<
+    DateRange | undefined
+  >(undefined)
+
+  const [destination, setDestination] = useState<string | undefined>()
+  const [ownerName, setOwnerName] = useState<string | undefined>()
+  const [ownerEmail, setOwnerEmail] = useState<string | undefined>()
+
   const [emailsToInvite, setEmailsToInvite] = useState<string[]>([
     'vikom.sanchez@gmail.com',
   ])
+
+  const [isHandleCreateTripLoading, setIsHandleCreateTripLoading] =
+    useState<boolean>(false)
 
   function turnGuestOppositePrevBooleanInput() {
     setIsGuestInputOpen((prev) => !prev)
@@ -52,10 +66,39 @@ export function CreateTripPage() {
     setEmailsToInvite(newEmailsToInviteList)
   }
 
-  function handleCreateTrip(e: React.FormEvent<HTMLFormElement>) {
+  async function handleCreateTrip(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
-    navigate('/trips/123')
+    if (
+      !destination ||
+      !ownerName ||
+      !ownerEmail ||
+      !eventStartAndEndDates ||
+      !(eventStartAndEndDates.to instanceof Date) ||
+      !(eventStartAndEndDates.from instanceof Date)
+    )
+      return
+
+    setIsHandleCreateTripLoading(true)
+
+    try {
+      const response = await api.post<{ tripId: string }>('/trips', {
+        destination,
+        ownerName,
+        ownerEmail: ownerEmail.toLowerCase(),
+        startsAt: eventStartAndEndDates.from,
+        endsAt: eventStartAndEndDates.to,
+        emailsToInvite,
+      })
+
+      const { tripId } = response.data
+
+      navigate(`/trips/${tripId}`)
+    } catch (err) {
+      setIsHandleCreateTripLoading(false)
+
+      throw new Error(err as string)
+    }
   }
 
   return (
@@ -74,6 +117,10 @@ export function CreateTripPage() {
             turnGuestOppositePrevBooleanInput={
               turnGuestOppositePrevBooleanInput
             }
+            eventStartAndEndDates={eventStartAndEndDates}
+            setEventStartAndEndDates={setEventStartAndEndDates}
+            destination={destination}
+            setDestination={setDestination}
           />
 
           {isGuestInputOpen && (
@@ -120,6 +167,9 @@ export function CreateTripPage() {
           turnGuestOppositePrevBooleanConfirmTripModal={
             turnGuestOppositePrevBooleanConfirmTripModal
           }
+          setOwnerName={setOwnerName}
+          setOwnerEmail={setOwnerEmail}
+          isHandleCreateTripLoading={isHandleCreateTripLoading}
         />
       )}
     </div>
