@@ -1,5 +1,7 @@
 import { ArrowRight, Calendar, MapPin, Settings2 } from 'lucide-react'
 
+import { Button } from '../../../../components/buttons'
+
 interface DestinationAndDateStepsProps {
   turnGuestOppositePrevBooleanInput: () => void
   isGuestInputOpen: boolean
@@ -34,21 +36,15 @@ export function DestinationAndDateSteps({
       <div className="h-6 w-px bg-zinc-800" />
 
       {isGuestInputOpen ? (
-        <button
-          onClick={turnGuestOppositePrevBooleanInput}
-          className="flex items-center gap-2 rounded-lg bg-zinc-800 px-5 py-2 font-medium text-zinc-200 transition-colors duration-200 hover:bg-zinc-700"
-        >
+        <Button onClick={turnGuestOppositePrevBooleanInput} variant="secondary">
           Alterar local/data
           <Settings2 className="size-5" />
-        </button>
+        </Button>
       ) : (
-        <button
-          onClick={turnGuestOppositePrevBooleanInput}
-          className="flex items-center gap-2 rounded-lg bg-lime-300 px-5 py-2 font-medium text-lime-950 transition-colors duration-200 hover:bg-lime-400"
-        >
+        <Button onClick={turnGuestOppositePrevBooleanInput}>
           Continuar
           <ArrowRight className="size-5" />
-        </button>
+        </Button>
       )}
     </div>
   )

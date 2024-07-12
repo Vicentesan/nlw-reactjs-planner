@@ -1,5 +1,7 @@
 import { Link2, Plus } from 'lucide-react'
 
+import { Button } from '../../../components/buttons'
+
 interface ImportantLinksProps {
   turnOppositePrevBooleanCreateLinkModal: () => void
 }
@@ -45,13 +47,14 @@ export function ImportantLinks({
         </div>
       </div>
 
-      <button
+      <Button
         onClick={turnOppositePrevBooleanCreateLinkModal}
-        className="flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-zinc-800 px-5 font-medium text-zinc-200 transition-colors duration-200 hover:bg-zinc-700"
+        variant="secondary"
+        size="full"
       >
         <Plus className="size-5" />
         <span>Cadastrar novo link</span>
-      </button>
+      </Button>
     </div>
   )
 }

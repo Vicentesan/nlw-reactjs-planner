@@ -1,5 +1,7 @@
 import { AtSign, Plus, X } from 'lucide-react'
 
+import { Button } from '../../../../components/buttons'
+
 interface InviteGuestsModalProps {
   turnGuestOppositePrevBooleanInviteModal: () => void
   removeEmailsFromInvites: (email: string) => void
@@ -66,13 +68,10 @@ export function InviteGuestsModal({
             />
           </div>
 
-          <button
-            type="submit"
-            className="flex items-center gap-2 rounded-lg bg-lime-300 px-5 py-2 font-medium text-lime-950 transition-colors duration-200 hover:bg-lime-400"
-          >
+          <Button type="submit">
             Convidar
             <Plus className="size-5" />
-          </button>
+          </Button>
         </form>
       </div>
     </div>

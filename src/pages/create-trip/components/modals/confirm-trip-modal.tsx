@@ -1,5 +1,7 @@
 import { Mail, User, X } from 'lucide-react'
 
+import { Button } from '../../../../components/buttons'
+
 interface ConfirmTripModalProps {
   turnGuestOppositePrevBooleanConfirmTripModal: () => void
   handleCreateTrip: (e: React.FormEvent<HTMLFormElement>) => void
@@ -60,12 +62,9 @@ export function ConfirmTripModal({
             </div>
           </div>
 
-          <button
-            type="submit"
-            className="h-11 w-full rounded-md bg-lime-300 font-medium text-lime-950 transition-colors duration-200 hover:bg-lime-400"
-          >
+          <Button type="submit" size="full">
             Confirmar criação da viagem
-          </button>
+          </Button>
         </form>
       </div>
     </div>
