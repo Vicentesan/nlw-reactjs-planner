@@ -2,7 +2,8 @@ import { Calendar, CircleCheck, Loader2, Tag, X } from 'lucide-react'
 import { useState } from 'react'
 import { useContextSelector } from 'use-context-selector'
 
-import { Button } from '@/components/buttons'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import { TripContext } from '@/contexts/trip-context'
 import { api } from '@/lib/axios'
 
@@ -59,12 +60,14 @@ export function CreateActivityModal({
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold">Cadastrar atividade</h2>
-            <button
+            <Button
+              variant="ghost"
+              size="icon"
               type="button"
               onClick={turnOppositePrevBooleanCreateActivityModal}
             >
               <X className="size-5 text-zinc-400 transition-colors duration-200 hover:text-zinc-300" />
-            </button>
+            </Button>
           </div>
 
           <p className="text-sm text-zinc-400">
@@ -76,7 +79,7 @@ export function CreateActivityModal({
           <div className="space-y-2">
             <div className="flex h-14 items-center gap-2 rounded-lg bg-zinc-950 stroke-zinc-800 px-4">
               <Tag className="size-5 text-zinc-400" />
-              <input
+              <Input
                 name="title"
                 placeholder="Qual a atividade?"
                 className="w-40 flex-1 bg-transparent text-lg placeholder-zinc-400 outline-none disabled:cursor-not-allowed"
@@ -85,7 +88,7 @@ export function CreateActivityModal({
 
             <div className="flex h-14 flex-1 items-center gap-2 rounded-lg bg-zinc-950 stroke-zinc-800 px-4">
               <Calendar className="size-5 text-zinc-400" />
-              <input
+              <Input
                 type="datetime-local"
                 name="occursAt"
                 placeholder="Data e horário da atividade"
@@ -95,10 +98,10 @@ export function CreateActivityModal({
           </div>
 
           <Button
-            size="full"
             disabled={
               isHandleCreateActivityLoading || isHandleCreateActivityDone
             }
+            size="full"
           >
             {isHandleCreateActivityLoading ? (
               <Loader2 className="size-5 animate-spin" />

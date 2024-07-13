@@ -3,7 +3,7 @@ import { Calendar, MapPin, Settings2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useContextSelector } from 'use-context-selector'
 
-import { Button } from '@/components/buttons'
+import { Button } from '@/components/ui/button'
 import { TripContext } from '@/contexts/trip-context'
 import { api } from '@/lib/axios'
 

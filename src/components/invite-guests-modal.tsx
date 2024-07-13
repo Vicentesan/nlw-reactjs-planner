@@ -1,7 +1,7 @@
 import { AtSign, Loader2, Plus, X } from 'lucide-react'
 import { useState } from 'react'
 
-import { Button } from '@/components/buttons'
+import { Button } from './ui/button'
 
 interface InviteGuestsModalProps {
   turnGuestOppositePrevBooleanInviteModal: () => void
@@ -32,12 +32,14 @@ export function InviteGuestsModal({
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold">Selecionar convidados</h2>
-            <button
+            <Button
+              variant="ghost"
+              size="icon"
               type="button"
               onClick={turnGuestOppositePrevBooleanInviteModal}
             >
               <X className="size-5 text-zinc-400 transition-colors duration-200 hover:text-zinc-300" />
-            </button>
+            </Button>
           </div>
 
           <p className="text-sm text-zinc-400">
@@ -106,8 +108,6 @@ export function InviteGuestsModal({
           {sendInvitesButton && (
             <Button
               type="submit"
-              variant="primary"
-              size="full"
               disabled={
                 (emailsToInvite.length <= 0 || isHandleInviteLoading) ??
                 isHandleInviteLoading

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useContextSelector } from 'use-context-selector'
 
-import { Button } from '@/components/buttons'
+import { Button } from '@/components/ui/button'
 import { TripContext } from '@/contexts/trip-context'
 import { api } from '@/lib/axios'
 
@@ -75,12 +75,14 @@ export function ConfirmParticipationModal() {
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold">Confirmar participação</h2>
-            <button
+            <Button
+              variant="ghost"
+              size="icon"
               type="button"
-              // onClick={turnOppositePrevBooleanCreateActivityModal}
+              // onClick={turnOppositePrevBooleanCreateActivityModal} TODO: Implement this function
             >
               <X className="size-5 text-zinc-400 transition-colors duration-200 hover:text-zinc-300" />
-            </button>
+            </Button>
           </div>
 
           <p className="text-sm text-zinc-400">
@@ -125,8 +127,8 @@ export function ConfirmParticipationModal() {
 
           <Button
             type="submit"
-            size="full"
             disabled={isHandleConfirmParticipationLoading}
+            size="full"
           >
             {isHandleConfirmParticipationLoading ? (
               <Loader2 className="size-5 animate-spin" />

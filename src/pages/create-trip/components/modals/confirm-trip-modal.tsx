@@ -1,6 +1,7 @@
 import { Loader2, Mail, User, X } from 'lucide-react'
 
-import { Button } from '@/components/buttons'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 
 interface ConfirmTripModalProps {
   turnGuestOppositePrevBooleanConfirmTripModal: () => void
@@ -25,12 +26,14 @@ export function ConfirmTripModal({
             <h2 className="text-lg font-semibold">
               Confirmar criação da viagem
             </h2>
-            <button
+            <Button
+              variant="ghost"
+              size="icon"
               type="button"
               onClick={turnGuestOppositePrevBooleanConfirmTripModal}
             >
               <X className="size-5 text-zinc-400 transition-colors duration-200 hover:text-zinc-300" />
-            </button>
+            </Button>
           </div>
 
           <p className="text-sm text-zinc-400">
@@ -50,7 +53,7 @@ export function ConfirmTripModal({
           <div className="space-y-2">
             <div className="flex h-14 items-center gap-2 rounded-lg bg-zinc-950 stroke-zinc-800 px-4">
               <User className="size-5 text-zinc-400" />
-              <input
+              <Input
                 name="name"
                 placeholder="Seu nome completo"
                 onChange={(e) => setOwnerName(e.target.value)}
@@ -60,20 +63,20 @@ export function ConfirmTripModal({
 
             <div className="flex h-14 items-center gap-2 rounded-lg bg-zinc-950 stroke-zinc-800 px-4">
               <Mail className="size-5 text-zinc-400" />
-              <input
+              <Input
                 type="email"
                 name="email"
                 placeholder="Seu e-mail pessoal"
                 onChange={(e) => setOwnerEmail(e.target.value)}
-                className="w-40 flex-1 bg-transparent text-lg font-medium placeholder-zinc-400 outline-none disabled:cursor-not-allowed"
+                className="w-40 flex-1 bg-transparent text-lg placeholder-zinc-400 outline-none disabled:cursor-not-allowed"
               />
             </div>
           </div>
 
           <Button
             type="submit"
-            size="full"
             disabled={isHandleCreateTripLoading}
+            size="full"
           >
             {isHandleCreateTripLoading ? (
               <Loader2 className="size-5 animate-spin" />

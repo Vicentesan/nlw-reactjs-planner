@@ -5,7 +5,8 @@ import { ArrowRight, Calendar, MapPin, Settings2, X } from 'lucide-react'
 import { useState } from 'react'
 import { type DateRange, DayPicker } from 'react-day-picker'
 
-import { Button } from '@/components/buttons'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 
 interface DestinationAndDateStepsProps {
   turnGuestOppositePrevBooleanInput: () => void
@@ -39,7 +40,7 @@ export function DestinationAndDateSteps({
     <div className="flex h-16 items-center gap-3 rounded-xl bg-zinc-900 px-4 shadow-shape">
       <div className="flex flex-1 items-center gap-2">
         <MapPin className="size-5 text-zinc-400" />
-        <input
+        <Input
           type="text"
           placeholder="Para onde você vai?"
           className="flex-1 truncate bg-transparent text-lg placeholder-zinc-400 outline-none disabled:cursor-not-allowed"
@@ -67,12 +68,14 @@ export function DestinationAndDateSteps({
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <h2 className="text-lg font-semibold">Selecione a data</h2>
-                <button
+                <Button
+                  variant="ghost"
+                  size="icon"
                   type="button"
                   onClick={turnGuestOppositePrevBooleanDatePicker}
                 >
                   <X className="size-5 text-zinc-400 transition-colors duration-200 hover:text-zinc-300" />
-                </button>
+                </Button>
               </div>
             </div>
 

@@ -2,7 +2,7 @@ import { CircleCheck, CircleDashed, FolderClosed, UserCog } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useContextSelector } from 'use-context-selector'
 
-import { Button } from '@/components/buttons'
+import { Button } from '@/components/ui/button'
 import { TripContext } from '@/contexts/trip-context'
 import { api } from '@/lib/axios'
 
@@ -78,16 +78,15 @@ export function Guests({
           <div className="flex space-x-2">
             <Button
               onClick={() => handleManageButton('invite')}
-              variant="primary"
-              size="full"
+              className="w-full" // here we cont use size="full", because we don't want the h-11
             >
               <UserCog className="size-5" />
               <span>Convidar</span>
             </Button>
             <Button
               onClick={() => handleManageButton('remove')}
-              variant="danger"
-              size="full"
+              className="w-full" // here we cont use size="full", because we don't want the h-11
+              variant="destructive"
               disabled
             >
               <UserCog className="size-5" />
