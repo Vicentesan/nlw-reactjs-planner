@@ -1,13 +1,11 @@
 import { format } from 'date-fns'
 import { Calendar, MapPin, Settings2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import { useContextSelector } from 'use-context-selector'
 
 import { Button } from '@/components/buttons'
+import { TripContext } from '@/contexts/trip-context'
 import { api } from '@/lib/axios'
-
-interface DestinationAndDateHeaderProps {
-  tripId: string
-}
 
 interface Trip {
   id: string
@@ -17,12 +15,14 @@ interface Trip {
   isConfirmed: boolean
 }
 
-export function DestinationAndDateHeader({
-  tripId,
-}: DestinationAndDateHeaderProps) {
+export function DestinationAndDateHeader() {
   const [trip, setTrip] = useState<Trip | undefined>()
 
+  const tripId = useContextSelector(TripContext, (ctx) => ctx.tripId)
+
   useEffect(() => {
+    if (!tripId) throw new Error('Trip ID not found')
+
     api.get(`trips/${tripId}`).then((response) => setTrip(response.data.trip))
   }, [tripId])
 

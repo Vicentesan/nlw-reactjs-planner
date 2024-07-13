@@ -1,31 +1,35 @@
 import { Calendar, CircleCheck, Loader2, Tag, X } from 'lucide-react'
 import { useState } from 'react'
+import { useContextSelector } from 'use-context-selector'
 
 import { Button } from '@/components/buttons'
+import { TripContext } from '@/contexts/trip-context'
 import { api } from '@/lib/axios'
 
 interface CreateActivityModalProps {
   turnOppositePrevBooleanCreateActivityModal: () => void
-  tripId: string
 }
 
 export function CreateActivityModal({
   turnOppositePrevBooleanCreateActivityModal,
-  tripId,
 }: CreateActivityModalProps) {
   const [isHandleCreateActivityLoading, setIsHandleCreateActivityLoading] =
     useState<boolean>(false)
   const [isHandleCreateActivityDone, setIsHandleCreateActivityDone] =
     useState<boolean>(false)
 
+  const tripId = useContextSelector(TripContext, (ctx) => ctx.tripId)
+
   async function handleCreateActivity(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
+
+    if (!tripId) throw new Error('Trip ID not found')
 
     const formData = new FormData(e.currentTarget)
     const title = formData.get('title')?.toString()
     const occursAt = formData.get('occursAt')?.toString()
 
-    if (!title || !occursAt || !tripId) return
+    if (!title || !occursAt) return
 
     setIsHandleCreateActivityLoading(true)
 

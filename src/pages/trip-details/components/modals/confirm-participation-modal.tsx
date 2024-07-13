@@ -2,13 +2,11 @@ import { format } from 'date-fns'
 import { Loader2, Mail, User, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { useContextSelector } from 'use-context-selector'
 
 import { Button } from '@/components/buttons'
+import { TripContext } from '@/contexts/trip-context'
 import { api } from '@/lib/axios'
-
-interface ConfirmParticipationModalProps {
-  tripId: string
-}
 
 interface Trip {
   id: string
@@ -18,9 +16,7 @@ interface Trip {
   isConfirmed: boolean
 }
 
-export function ConfirmParticipationModal({
-  tripId,
-}: ConfirmParticipationModalProps) {
+export function ConfirmParticipationModal() {
   const [
     isHandleConfirmParticipationLoading,
     setIsHandleConfirmParticipationLoading,
@@ -32,7 +28,11 @@ export function ConfirmParticipationModal({
 
   const { participantId } = useParams()
 
-  if (!tripId || !participantId) return
+  const tripId = useContextSelector(TripContext, (ctx) => ctx.tripId)
+
+  if (!tripId) throw new Error('Trip ID not found')
+
+  if (!participantId) return
 
   useEffect(() => {
     api.get(`trips/${tripId}`).then((response) => setTrip(response.data.trip))

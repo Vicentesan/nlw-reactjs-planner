@@ -1,25 +1,29 @@
 import { Calendar, CircleCheck, Loader2, Tag, X } from 'lucide-react'
 import { useState } from 'react'
+import { useContextSelector } from 'use-context-selector'
 
 import { Button } from '@/components/buttons'
+import { TripContext } from '@/contexts/trip-context'
 import { api } from '@/lib/axios'
 
 interface CreateNewLinkModalProps {
   turnOppositePrevBooleanCreateLinkModal: () => void
-  tripId: string
 }
 
 export function CreateNewLinkModal({
   turnOppositePrevBooleanCreateLinkModal,
-  tripId,
 }: CreateNewLinkModalProps) {
   const [isHandleCreateLinkLoading, setIsHandleCreateLinkLoading] =
     useState<boolean>(false)
   const [isHandleCreateLinkDone, setIsHandleCreateLinkDone] =
     useState<boolean>(false)
 
+  const tripId = useContextSelector(TripContext, (ctx) => ctx.tripId)
+
   async function handleCreateLink(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
+
+    if (!tripId) throw new Error('Trip ID not found')
 
     const formData = new FormData(e.currentTarget)
     const title = formData.get('title')?.toString()

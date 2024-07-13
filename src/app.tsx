@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
+import { TripContextProvider } from './contexts/trip-context'
 import { CreateTripPage } from './pages/create-trip'
 import { TripDetailsPage } from './pages/trip-details'
 
@@ -10,14 +11,26 @@ const router = createBrowserRouter([
   },
   {
     path: '/trips/:tripId/participants/:participantId/confirm',
-    element: <TripDetailsPage confirmParticipant />,
+    element: (
+      <TripContextProvider>
+        <TripDetailsPage confirmParticipant />
+      </TripContextProvider>
+    ),
   },
   {
     path: '/trips/:tripId',
-    element: <TripDetailsPage />,
+    element: (
+      <TripContextProvider>
+        <TripDetailsPage />
+      </TripContextProvider>
+    ),
   },
 ])
 
 export function App() {
-  return <RouterProvider router={router} />
+  return (
+    <TripContextProvider>
+      <RouterProvider router={router} />
+    </TripContextProvider>
+  )
 }

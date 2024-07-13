@@ -1,12 +1,13 @@
 import { Link2, Plus } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import { useContextSelector } from 'use-context-selector'
 
 import { Button } from '@/components/buttons'
+import { TripContext } from '@/contexts/trip-context'
 import { api } from '@/lib/axios'
 
 interface ImportantLinksProps {
   turnOppositePrevBooleanCreateLinkModal: () => void
-  tripId: string
 }
 
 interface ImportantLink {
@@ -17,11 +18,14 @@ interface ImportantLink {
 
 export function ImportantLinks({
   turnOppositePrevBooleanCreateLinkModal,
-  tripId,
 }: ImportantLinksProps) {
   const [importantLinks, setImportantLinks] = useState<ImportantLink[]>([])
 
+  const tripId = useContextSelector(TripContext, (ctx) => ctx.tripId)
+
   useEffect(() => {
+    if (!tripId) throw new Error('Trip ID not found')
+
     api
       .get(`trips/${tripId}/links`)
       .then((response) => setImportantLinks(response.data.links))

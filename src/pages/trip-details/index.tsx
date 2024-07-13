@@ -85,7 +85,7 @@ export function TripDetailsPage({
 
   return (
     <div className="mx-auto max-w-6xl space-y-8 px-6 py-10">
-      <DestinationAndDateHeader tripId={tripId} />
+      <DestinationAndDateHeader />
 
       <main className="flex gap-16">
         <div className="flex-1 space-y-6">
@@ -100,12 +100,11 @@ export function TripDetailsPage({
             </button>
           </div>
 
-          <Activities tripId={tripId} />
+          <Activities />
         </div>
 
         <div className="w-80 space-y-6">
           <ImportantLinks
-            tripId={tripId}
             turnOppositePrevBooleanCreateLinkModal={
               turnOppositePrevBooleanCreateLinkModal
             }
@@ -114,7 +113,6 @@ export function TripDetailsPage({
           <div className="h-px w-full bg-zinc-800" />
 
           <Guests
-            tripId={tripId}
             turnOppositePrevBooleanManageGuestsModal={
               turnOppositePrevBooleanManageGuestsModal
             }
@@ -124,7 +122,6 @@ export function TripDetailsPage({
 
       {isCreateActivityModalOpen && (
         <CreateActivityModal
-          tripId={tripId}
           turnOppositePrevBooleanCreateActivityModal={
             turnOppositePrevBooleanCreateActivityModal
           }
@@ -133,7 +130,6 @@ export function TripDetailsPage({
 
       {isCreateLinkModalOpen && (
         <CreateNewLinkModal
-          tripId={tripId}
           turnOppositePrevBooleanCreateLinkModal={
             turnOppositePrevBooleanCreateLinkModal
           }
@@ -154,7 +150,7 @@ export function TripDetailsPage({
         />
       )}
 
-      {confirmParticipant && <ConfirmParticipationModal tripId={tripId} />}
+      {confirmParticipant && <ConfirmParticipationModal />}
     </div>
   )
 }

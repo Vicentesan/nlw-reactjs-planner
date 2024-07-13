@@ -2,12 +2,10 @@ import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { CircleCheck } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import { useContextSelector } from 'use-context-selector'
 
+import { TripContext } from '@/contexts/trip-context'
 import { api } from '@/lib/axios'
-
-interface ActivitiesProps {
-  tripId: string
-}
 
 interface TripActivity {
   date: string
@@ -18,10 +16,14 @@ interface TripActivity {
   }[]
 }
 
-export function Activities({ tripId }: ActivitiesProps) {
+export function Activities() {
   const [tripActivities, setTripActivities] = useState<TripActivity[]>([])
 
+  const tripId = useContextSelector(TripContext, (ctx) => ctx.tripId)
+
   useEffect(() => {
+    if (!tripId) throw new Error('Trip ID not found')
+
     api
       .get(`/trips/${tripId}/activities`)
       .then((response) => setTripActivities(response.data.activities))

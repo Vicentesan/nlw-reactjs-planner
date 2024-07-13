@@ -1,12 +1,13 @@
 import { CircleCheck, CircleDashed, FolderClosed, UserCog } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import { useContextSelector } from 'use-context-selector'
 
 import { Button } from '@/components/buttons'
+import { TripContext } from '@/contexts/trip-context'
 import { api } from '@/lib/axios'
 
 interface GuestsProps {
   turnOppositePrevBooleanManageGuestsModal: () => void
-  tripId: string
 }
 
 interface TripParticipant {
@@ -18,7 +19,6 @@ interface TripParticipant {
 
 export function Guests({
   turnOppositePrevBooleanManageGuestsModal,
-  tripId,
 }: GuestsProps) {
   const [tripParticipants, setTripParticipants] = useState<TripParticipant[]>(
     [],
@@ -27,7 +27,10 @@ export function Guests({
   const [hasManageButtonBeenClicked, setHasManageButtonBeenClicked] =
     useState<boolean>(false)
 
+  const tripId = useContextSelector(TripContext, (ctx) => ctx.tripId)
+
   function handleManageButton(buttonType?: 'invite' | 'remove') {
+    if (!tripId) throw new Error('Trip ID not found')
     if (!buttonType) return setHasManageButtonBeenClicked((prev) => !prev)
 
     if (buttonType === 'invite')
@@ -39,6 +42,8 @@ export function Guests({
   }
 
   useEffect(() => {
+    if (!tripId) throw new Error('Trip ID not found')
+
     api
       .get(`trips/${tripId}/participants`)
       .then((response) => setTripParticipants(response.data.participants))
