@@ -2,9 +2,12 @@ import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { CircleCheck } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
 
 import { api } from '@/lib/axios'
+
+interface ActivitiesProps {
+  tripId: string
+}
 
 interface TripActivity {
   date: string
@@ -15,8 +18,7 @@ interface TripActivity {
   }[]
 }
 
-export function Activities() {
-  const { tripId } = useParams()
+export function Activities({ tripId }: ActivitiesProps) {
   const [tripActivities, setTripActivities] = useState<TripActivity[]>([])
 
   useEffect(() => {

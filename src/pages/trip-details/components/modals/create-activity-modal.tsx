@@ -1,23 +1,22 @@
 import { Calendar, CircleCheck, Loader2, Tag, X } from 'lucide-react'
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
 
 import { Button } from '@/components/buttons'
 import { api } from '@/lib/axios'
 
 interface CreateActivityModalProps {
   turnOppositePrevBooleanCreateActivityModal: () => void
+  tripId: string
 }
 
 export function CreateActivityModal({
   turnOppositePrevBooleanCreateActivityModal,
+  tripId,
 }: CreateActivityModalProps) {
   const [isHandleCreateActivityLoading, setIsHandleCreateActivityLoading] =
     useState<boolean>(false)
   const [isHandleCreateActivityDone, setIsHandleCreateActivityDone] =
     useState<boolean>(false)
-
-  const { tripId } = useParams()
 
   async function handleCreateActivity(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()

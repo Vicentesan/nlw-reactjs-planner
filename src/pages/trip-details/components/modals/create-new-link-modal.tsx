@@ -1,23 +1,22 @@
 import { Calendar, CircleCheck, Loader2, Tag, X } from 'lucide-react'
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
 
 import { Button } from '@/components/buttons'
 import { api } from '@/lib/axios'
 
 interface CreateNewLinkModalProps {
   turnOppositePrevBooleanCreateLinkModal: () => void
+  tripId: string
 }
 
 export function CreateNewLinkModal({
   turnOppositePrevBooleanCreateLinkModal,
+  tripId,
 }: CreateNewLinkModalProps) {
   const [isHandleCreateLinkLoading, setIsHandleCreateLinkLoading] =
     useState<boolean>(false)
   const [isHandleCreateLinkDone, setIsHandleCreateLinkDone] =
     useState<boolean>(false)
-
-  const { tripId } = useParams()
 
   async function handleCreateLink(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()

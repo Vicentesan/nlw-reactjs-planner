@@ -6,6 +6,10 @@ import { useParams } from 'react-router-dom'
 import { Button } from '@/components/buttons'
 import { api } from '@/lib/axios'
 
+interface ConfirmParticipationModalProps {
+  tripId: string
+}
+
 interface Trip {
   id: string
   destination: string
@@ -14,7 +18,9 @@ interface Trip {
   isConfirmed: boolean
 }
 
-export function ConfirmParticipationModal() {
+export function ConfirmParticipationModal({
+  tripId,
+}: ConfirmParticipationModalProps) {
   const [
     isHandleConfirmParticipationLoading,
     setIsHandleConfirmParticipationLoading,
@@ -24,7 +30,7 @@ export function ConfirmParticipationModal() {
   const [participantName, setParticipantName] = useState<string | undefined>()
   const [participantEmail, setParticipantEmail] = useState<string | undefined>()
 
-  const { tripId, participantId } = useParams()
+  const { participantId } = useParams()
 
   if (!tripId || !participantId) return
 

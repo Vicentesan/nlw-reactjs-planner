@@ -1,12 +1,12 @@
 import { Link2, Plus } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
 
 import { Button } from '@/components/buttons'
 import { api } from '@/lib/axios'
 
 interface ImportantLinksProps {
   turnOppositePrevBooleanCreateLinkModal: () => void
+  tripId: string
 }
 
 interface ImportantLink {
@@ -17,8 +17,8 @@ interface ImportantLink {
 
 export function ImportantLinks({
   turnOppositePrevBooleanCreateLinkModal,
+  tripId,
 }: ImportantLinksProps) {
-  const { tripId } = useParams()
   const [importantLinks, setImportantLinks] = useState<ImportantLink[]>([])
 
   useEffect(() => {

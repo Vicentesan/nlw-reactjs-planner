@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom'
 
 import { api } from '@/lib/axios'
 
+import { InviteGuestsModal } from '../../components/invite-guests-modal'
 import { ConfirmTripModal } from './components/modals/confirm-trip-modal'
-import { InviteGuestsModal } from './components/modals/invite-guests-modal'
 import { DestinationAndDateSteps } from './components/steps/destination-and-date-step'
 import { InviteGuestsStep } from './components/steps/invite-guests-step'
 

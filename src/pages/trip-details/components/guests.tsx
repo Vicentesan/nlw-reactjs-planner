@@ -1,12 +1,12 @@
 import { CircleCheck, CircleDashed, UserCog } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
 
 import { Button } from '@/components/buttons'
 import { api } from '@/lib/axios'
 
 interface GuestsProps {
   turnOppositePrevBooleanManageGuestsModal: () => void
+  tripId: string
 }
 
 interface TripParticipant {
@@ -18,8 +18,8 @@ interface TripParticipant {
 
 export function Guests({
   turnOppositePrevBooleanManageGuestsModal,
+  tripId,
 }: GuestsProps) {
-  const { tripId } = useParams()
   const [tripParticipants, setTripParticipants] = useState<TripParticipant[]>(
     [],
   )

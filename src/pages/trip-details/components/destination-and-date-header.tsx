@@ -1,10 +1,13 @@
 import { format } from 'date-fns'
 import { Calendar, MapPin, Settings2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
 
 import { Button } from '@/components/buttons'
 import { api } from '@/lib/axios'
+
+interface DestinationAndDateHeaderProps {
+  tripId: string
+}
 
 interface Trip {
   id: string
@@ -14,8 +17,9 @@ interface Trip {
   isConfirmed: boolean
 }
 
-export function DestinationAndDateHeader() {
-  const { tripId } = useParams()
+export function DestinationAndDateHeader({
+  tripId,
+}: DestinationAndDateHeaderProps) {
   const [trip, setTrip] = useState<Trip | undefined>()
 
   useEffect(() => {

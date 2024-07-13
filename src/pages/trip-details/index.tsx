@@ -1,5 +1,9 @@
 import { Plus } from 'lucide-react'
 import { useState } from 'react'
+import { useParams } from 'react-router-dom'
+
+import { InviteGuestsModal } from '@/components/invite-guests-modal'
+import { api } from '@/lib/axios'
 
 import { Activities } from './components/activities'
 import { DestinationAndDateHeader } from './components/destination-and-date-header'
@@ -18,10 +22,21 @@ export function TripDetailsPage({
     useState<boolean>(false)
   const [isCreateLinkModalOpen, setIsCreateLinkModalOpen] =
     useState<boolean>(false)
-  const [, setIsManageGuestsModalOpen] = useState<boolean>(false)
+  const [isManageGuestsModalOpen, setIsManageGuestsModalOpen] =
+    useState<boolean>(false)
+
+  const [emailsToInvite, setEmailsToInvite] = useState<string[]>([])
+
+  const { tripId } = useParams()
+
+  if (!tripId) return null
 
   function turnOppositePrevBooleanCreateActivityModal() {
     setIsCreateActivityModalOpen((prev) => !prev)
+  }
+
+  function turnGuestOppositePrevBooleanInviteModal() {
+    setIsManageGuestsModalOpen((prev) => !prev)
   }
 
   function turnOppositePrevBooleanCreateLinkModal() {
@@ -32,9 +47,45 @@ export function TripDetailsPage({
     setIsManageGuestsModalOpen((prev) => !prev)
   }
 
+  const [isHandleInviteLoading, setIsHandleInviteLoading] =
+    useState<boolean>(false)
+
+  async function handleInvite(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+
+    if (emailsToInvite.length < 0) return
+
+    setIsHandleInviteLoading(true)
+
+    try {
+      await api
+        .post(`/trips/${tripId}/invites`, {
+          emails: emailsToInvite,
+        })
+        .then(async () => {
+          setIsHandleInviteLoading(false)
+          setTimeout(() => {
+            window.document.location.reload()
+          }, 3000)
+        })
+    } catch (err) {
+      setIsHandleInviteLoading(false)
+
+      throw new Error(err as string)
+    }
+  }
+
+  function removeEmailsFromInvites(emailToRemove: string) {
+    const newEmailsToInviteList = emailsToInvite.filter(
+      (email) => email !== emailToRemove,
+    )
+
+    setEmailsToInvite(newEmailsToInviteList)
+  }
+
   return (
     <div className="mx-auto max-w-6xl space-y-8 px-6 py-10">
-      <DestinationAndDateHeader />
+      <DestinationAndDateHeader tripId={tripId} />
 
       <main className="flex gap-16">
         <div className="flex-1 space-y-6">
@@ -49,11 +100,12 @@ export function TripDetailsPage({
             </button>
           </div>
 
-          <Activities />
+          <Activities tripId={tripId} />
         </div>
 
         <div className="w-80 space-y-6">
           <ImportantLinks
+            tripId={tripId}
             turnOppositePrevBooleanCreateLinkModal={
               turnOppositePrevBooleanCreateLinkModal
             }
@@ -62,6 +114,7 @@ export function TripDetailsPage({
           <div className="h-px w-full bg-zinc-800" />
 
           <Guests
+            tripId={tripId}
             turnOppositePrevBooleanManageGuestsModal={
               turnOppositePrevBooleanManageGuestsModal
             }
@@ -71,6 +124,7 @@ export function TripDetailsPage({
 
       {isCreateActivityModalOpen && (
         <CreateActivityModal
+          tripId={tripId}
           turnOppositePrevBooleanCreateActivityModal={
             turnOppositePrevBooleanCreateActivityModal
           }
@@ -79,13 +133,28 @@ export function TripDetailsPage({
 
       {isCreateLinkModalOpen && (
         <CreateNewLinkModal
-          turnOppositePrevBooleanCreateActivityModal={
-            turnOppositePrevBooleanCreateActivityModal
+          tripId={tripId}
+          turnOppositePrevBooleanCreateLinkModal={
+            turnOppositePrevBooleanCreateLinkModal
           }
         />
       )}
 
-      {confirmParticipant && <ConfirmParticipationModal />}
+      {isManageGuestsModalOpen && (
+        <InviteGuestsModal
+          emailsToInvite={emailsToInvite}
+          setEmailsToInvite={setEmailsToInvite}
+          handleInvite={handleInvite}
+          removeEmailsFromInvites={removeEmailsFromInvites}
+          turnGuestOppositePrevBooleanInviteModal={
+            turnGuestOppositePrevBooleanInviteModal
+          }
+          sendInvitesButton
+          isHandleInviteLoading={isHandleInviteLoading}
+        />
+      )}
+
+      {confirmParticipant && <ConfirmParticipationModal tripId={tripId} />}
     </div>
   )
 }
