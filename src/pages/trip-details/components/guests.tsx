@@ -1,4 +1,4 @@
-import { CircleCheck, CircleDashed, UserCog } from 'lucide-react'
+import { CircleCheck, CircleDashed, FolderClosed, UserCog } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 import { Button } from '@/components/buttons'
@@ -23,6 +23,20 @@ export function Guests({
   const [tripParticipants, setTripParticipants] = useState<TripParticipant[]>(
     [],
   )
+
+  const [hasManageButtonBeenClicked, setHasManageButtonBeenClicked] =
+    useState<boolean>(false)
+
+  function handleManageButton(buttonType?: 'invite' | 'remove') {
+    if (!buttonType) return setHasManageButtonBeenClicked((prev) => !prev)
+
+    if (buttonType === 'invite')
+      return turnOppositePrevBooleanManageGuestsModal()
+
+    if (buttonType === 'remove') {
+      // TODO: implement remove functionality
+    }
+  }
 
   useEffect(() => {
     api
@@ -54,14 +68,56 @@ export function Guests({
         ))}
       </div>
 
-      <Button
-        onClick={turnOppositePrevBooleanManageGuestsModal}
-        variant="secondary"
-        size="full"
-      >
-        <UserCog className="size-5" />
-        <span>Gerenciar convidados</span>
-      </Button>
+      {hasManageButtonBeenClicked ? (
+        <>
+          <div className="flex space-x-2">
+            <Button
+              onClick={() => handleManageButton('invite')}
+              variant="primary"
+              size="full"
+            >
+              <UserCog className="size-5" />
+              <span>Convidar</span>
+            </Button>
+            <Button
+              onClick={() => handleManageButton('remove')}
+              variant="danger"
+              size="full"
+              disabled
+            >
+              <UserCog className="size-5" />
+              <span>Remover</span>
+            </Button>
+          </div>
+
+          <div className="h-px w-full bg-zinc-800" />
+
+          <Button
+            onClick={() => handleManageButton()}
+            variant="secondary"
+            size="full"
+          >
+            <FolderClosed className="size-5" />
+            <span>Fechar gerenciamento</span>
+          </Button>
+
+          <div className="h-px w-full bg-zinc-800" />
+
+          <p className="text-center text-sm text-zinc-500">
+            funcionalidade de <strong>remoção</strong> ainda esta sendo
+            desenvolvida
+          </p>
+        </>
+      ) : (
+        <Button
+          onClick={() => handleManageButton()}
+          variant="secondary"
+          size="full"
+        >
+          <UserCog className="size-5" />
+          <span>Gerenciar convidados</span>
+        </Button>
+      )}
     </div>
   )
 }
