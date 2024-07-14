@@ -31,7 +31,7 @@ export function DestinationAndDateHeader() {
     : null
 
   return (
-    <div className="flex h-16 w-full items-center justify-between rounded-xl bg-zinc-900 px-6 shadow-shape">
+    <div className="shadow-shape flex h-16 w-full items-center justify-between rounded-xl bg-zinc-900 px-6">
       <div className="flex items-center gap-2">
         <MapPin className="size-5 text-zinc-400" />
         <span className="text-lg text-zinc-100">{trip?.destination}</span>

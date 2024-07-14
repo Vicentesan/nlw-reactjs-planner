@@ -37,7 +37,7 @@ export function DestinationAndDateSteps({
       : null
 
   return (
-    <div className="flex h-16 items-center gap-3 rounded-xl bg-zinc-900 px-4 shadow-shape">
+    <div className="shadow-shape flex h-16 items-center gap-3 rounded-xl bg-zinc-900 px-4">
       <div className="flex flex-1 items-center gap-2">
         <MapPin className="size-5 text-zinc-400" />
         <Input
@@ -64,7 +64,7 @@ export function DestinationAndDateSteps({
 
       {isDatePickerOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/60">
-          <div className="space-y-5 rounded-xl bg-zinc-900 px-6 py-5 shadow-shape">
+          <div className="shadow-shape space-y-5 rounded-xl bg-zinc-900 px-6 py-5">
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <h2 className="text-lg font-semibold">Selecione a data</h2>

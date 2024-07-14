@@ -71,7 +71,7 @@ export function ConfirmParticipationModal() {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/60">
-      <div className="w-[540px] space-y-5 rounded-xl bg-zinc-900 px-6 py-5 shadow-shape">
+      <div className="shadow-shape w-[540px] space-y-5 rounded-xl bg-zinc-900 px-6 py-5">
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold">Confirmar participação</h2>

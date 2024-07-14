@@ -100,7 +100,7 @@ export function CreateTripPage() {
   }
 
   return (
-    <div className="flex h-screen items-center justify-center bg-heroPattern bg-center bg-no-repeat">
+    <div className="bg-heroPattern flex h-screen items-center justify-center bg-center bg-no-repeat">
       <div className="w-full max-w-3xl space-y-10 px-6 text-center">
         <div className="flex flex-col items-center gap-3">
           <img src="/logo.svg" alt="plann.er" />
