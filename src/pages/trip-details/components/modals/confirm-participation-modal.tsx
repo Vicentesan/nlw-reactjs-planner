@@ -1,5 +1,5 @@
 import { format } from 'date-fns'
-import { Loader2, Mail, User, X } from 'lucide-react'
+import { Loader2, Mail, User } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useContextSelector } from 'use-context-selector'
@@ -75,14 +75,14 @@ export function ConfirmParticipationModal() {
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold">Confirmar participação</h2>
-            <Button
+            {/* <Button
               variant="ghost"
               size="icon"
               type="button"
-              // onClick={turnOppositePrevBooleanCreateActivityModal} TODO: Implement this function
+              // onClick={showAlert} TODO: What we will do here?
             >
               <X className="size-5 text-zinc-400 transition-colors duration-200 hover:text-zinc-300" />
-            </Button>
+            </Button> */}
           </div>
 
           <p className="text-sm text-zinc-400">
